@@ -1,8 +1,3 @@
-<?php
-$is_auth = rand(0, 1);
-
-$user_name = ''; // укажите здесь ваше имя
-?>
 <!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -70,6 +65,13 @@ $user_name = ''; // укажите здесь ваше имя
             <h2>Открытые лоты</h2>
         </div>
         <?php
+        function formatPrice ($number) {
+            if ($number < 1000) {
+                return $number . " ₽";
+            } else {
+                return number_format($number, 0, ' ', ' ') . " ₽";
+            }
+        };
         $lots = [
             [
                 "brand" => "2014 Rossignol District Snowboard",
@@ -121,7 +123,7 @@ $user_name = ''; // укажите здесь ваше имя
                         <div class="lot__state">
                             <div class="lot__rate">
                                 <span class="lot__amount">Стартовая цена</span>
-                                <span class="lot__cost"><?=$item['price']; ?><b class="rub">р</b></span>
+                                <span class="lot__cost"><?=formatPrice($item['price']); ?></span>
                             </div>
                             <div class="lot__timer timer">
                                 12:23
