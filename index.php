@@ -5,7 +5,8 @@ require_once('helpers.php');
 
 $page_content = include_template('index.php', [
     'lots' => $lots,
-    'categories' => $categories
+    'categories' => $categories,
+    'hours' => $hours
 ]);
 $layout_content = include_template('layout.php', [
     'content' => $page_content,
