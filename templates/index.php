@@ -28,11 +28,11 @@
                             <span class="lot__cost"><?=formatPrice(htmlspecialchars($item['price'])); ?></span>
                         </div>
                         <div class="lot__timer timer <?php
-                        if (calculateTime() <= "1:00") {
+                        if (calculateTimeTillMidnight() <= "1:00") {
                             print("timer--finishing");
                         }
                         ?>">
-                            <?= calculateTime(); ?>
+                            <?= calculateTimeTillMidnight(); ?>
                         </div>
                     </div>
                 </div>

@@ -7,7 +7,7 @@ function formatPrice ($number) {
     }
 };
 
-function calculateTime() {
+function calculateTimeTillMidnight() {
     date_default_timezone_set("America/Boise");
     $ts_midnight = strtotime('tomorrow');
     $secs_to_midnight = $ts_midnight - time();
