@@ -1,9 +1,12 @@
 CREATE DATABASE yeticave 
-DEFAULT CHARACTER SET utf8;
+DEFAULT CHARACTER SET utf8
+COLLATE utf8_unicode_cli;
+
+USE yeticave;
 
 CREATE TABLE categories (
 	id_categories INT AUTO_INCREMENT PRIMARY KEY,
-	category_name TEXT,
+	category_name CHAR(64),
 	category_class CHAR(64)
 );
 
@@ -16,17 +19,17 @@ CREATE TABLE lots (
 	starting_price INT,
 	end_in TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 	bid INT,
-	author CHAR(128),
-	winner CHAR(128),
-	category CHAR(64)
+	author INT REFERENCES users(id_user),
+	winner INT REFERENCES bids(id_user),
+	category INT REFERENCES categories(id_category)
 );
 
 CREATE TABLE bids (
   id_bids INT AUTO_INCREMENT PRIMARY KEY,
 	added_on TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 	offer INT,
-	USER CHAR(128),
-	lot CHAR(128)
+	user INT REFERENCES users(id_users),
+	lot INT REFERENCES lots(id_lots)
 );
 
 CREATE TABLE users (
@@ -34,19 +37,9 @@ CREATE TABLE users (
 	registered_on TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 	email CHAR(64) UNIQUE NOT NULL,
 	name CHAR(64),
-	PASSWORD CHAR(64) NOT NULL,
+	password CHAR(64) NOT NULL,
 	avatar CHAR(64),
 	contact CHAR(64),
-	created_lots CHAR(128),
-	past_bids CHAR(64)
+	created_lots INT references lots(id_lots),
+	past_bids INT references bids(id_bids)
 );
-
-INSERT into categories 
-(category_name, category_class) VALUES
-('Доски и лыжи', 'boards'), 
-('Крепления', 'attachment'),
-('Ботинки', 'boots'),
-('Одежда', 'clothing'),
-('Инструменты', 'tools'),
-('Разное', 'other');
-
