@@ -21,6 +21,8 @@ CREATE TABLE user (
                     contact VARCHAR(1000) NOT NULL
 );
 
+CREATE UNIQUE INDEX user_email ON user(email);
+
 CREATE TABLE lot (
                    id INT AUTO_INCREMENT PRIMARY KEY,
                    user_id INT,
@@ -39,7 +41,7 @@ CREATE TABLE lot (
 );
 
 CREATE INDEX open_lot_no_winner ON lot(winner, end_by);
-CREATE INDEX lot_in_category ON lot(category, created_on DESC);
+CREATE INDEX lot_in_category ON lot(category, created_on);
 CREATE FULLTEXT INDEX lot_title_and_description ON lot(title, description);
 
 CREATE TABLE bid (
@@ -51,3 +53,5 @@ CREATE TABLE bid (
                    added_on TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
                    offer INT UNSIGNED NOT NULL
 );
+
+CREATE INDEX added_bid ON bid(lot, added_on);
