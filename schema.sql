@@ -1,12 +1,12 @@
 CREATE DATABASE yeticave
-DEFAULT CHARACTER SET utf8;
+  DEFAULT CHARACTER SET utf8;
 
 USE yeticave;
 
 CREATE TABLE category (
                         id INT AUTO_INCREMENT PRIMARY KEY,
                         category VARCHAR(64),
-                        category_class VARCHAR(64) UNIQUE
+                        class VARCHAR(64) UNIQUE
 );
 
 CREATE UNIQUE INDEX category_name ON category(category);
@@ -41,7 +41,7 @@ CREATE TABLE lot (
 );
 
 CREATE INDEX open_lot_no_winner ON lot(winner, end_by);
-CREATE INDEX lot_in_category ON lot(category, created_on);
+CREATE INDEX lot_in_category ON lot(category, created_on DESC);
 CREATE FULLTEXT INDEX lot_title_and_description ON lot(title, description);
 
 CREATE TABLE bid (
