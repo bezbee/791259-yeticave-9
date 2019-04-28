@@ -55,17 +55,17 @@ INSERT into bid
 SELECT category, class FROM category;
 
 /*Получаем самые новые, открытые лоты. Каждый лот должен включать название, стартовую цену, ссылку на изображение, цену, название категории;*/
-SELECT title, starting_price, image, MAX(bid.offer) as price, category.category FROM lot
-JOIN bid ON lot.id = bid.lot
-JOIN category  ON lot.category = category.id
+SELECT l.title, l.starting_price, l.image, MAX(b.offer) as price, c.category FROM lot l
+JOIN bid b ON l.id = b.lot
+JOIN category  c ON l.category = c.id
 WHERE end_by > NOW()
-group by lot.id, title, starting_price, image, category
+group by l.id, l.title, l.starting_price, l.image, c.category
 ;
 
 /*Показываем лот по его id. Получаем также название категории, к которой принадлежит лот;*/
-SELECT lot.*, category.category from lot
-JOIN category  ON lot.category = category.id
-WHERE lot.id = "3";
+SELECT l.*, c.category from lot l
+JOIN category c ON l.category = c.id
+WHERE l.id = "3";
 
 /*Обновляем название лота по его идентификатору;*/
 UPDATE lot
