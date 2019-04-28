@@ -2,7 +2,7 @@ USE yeticave;
 
 /*Добавляем существующий список категорий; */
 INSERT into category
-(category, category_class) VALUES
+(category, class) VALUES
 ('Доски и лыжи', 'boards'),
 ('Крепления', 'attachment'),
 ('Ботинки', 'boots'),
