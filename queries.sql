@@ -33,7 +33,7 @@ INSERT into lot
 (user_id, category, title, description, image, starting_price, end_by, bid_step) VALUES
 ('1', '3','Ботинки для сноуборда DC Mutiny Charocal','Run small', 'img/lot-4.jpg', '10999', '2019-10-10 12:12:12', '350'),
 ('1', '4', 'Куртка для сноуборда DC Mutiny Charocal', 'Needs to be sprayed with waterproof solution', 'img/lot-5.jpg', '7500', '2019-02-06 12:04:06', '400'),
-('3', '6','Маска Oakley Canopy', 'img/lot-6.jpg', 'Good for beginners', '5400', '2019-05-06 14:00:04', '60');
+('3', '6','Маска Oakley Canopy', 'Good for beginners', 'img/lot-6.jpg', '5400', '2019-05-06 14:00:04', '60');
 
 /*Добавляем пару ставок для любого объявления;*/
 INSERT into bid
