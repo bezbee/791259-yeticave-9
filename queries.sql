@@ -38,32 +38,38 @@ INSERT into lot
 /*Добавляем пару ставок для любого объявления;*/
 INSERT into bid
 (user_id, lot, offer) VALUES
-('2', '3', '1200'),
-('1', '4', '1450');
+('2', '3', '12000'),
+('1', '4', '14500');
 
 INSERT into bid
 (user_id, lot, offer) VALUES
 ('1', '3', '2000');
 
+/*Добавляем несколько ставок для одного лота от разных пользователей;*/
+INSERT into bid
+(user_id, lot, offer) VALUES
+('2', '4', '12000'),
+('3', '4', '14500');
+
 /*Получаем все категории;*/
-SELECT category FROM category;
+SELECT category, class FROM category;
 
 /*Получаем самые новые, открытые лоты. Каждый лот должен включать название, стартовую цену, ссылку на изображение, цену, название категории;*/
-SELECT title, starting_price, image, bid.offer as price, category.category FROM lot
+SELECT title, starting_price, image, MAX(bid.offer) as price, end_by, c.category FROM lot
 JOIN bid ON lot.id = bid.lot
-JOIN category ON lot.category = category.id
-WHERE end_by > NOW();
+JOIN category c ON lot.category = c.id
+WHERE end_by > NOW()
+GROUP BY lot.id;
 
 /*Показываем лот по его id. Получаем также название категории, к которой принадлежит лот;*/
-SELECT title, category.category from lot
-JOIN category ON lot.category = category.id
+SELECT lot.*, c.category from lot
+JOIN category c ON lot.category = c.id
 WHERE lot.id = "3";
 
 /*Обновляем название лота по его идентификатору;*/
 UPDATE lot
 SET title = 'UPDATED:'
 WHERE id = '5';
-
 
 /*Получаем список самых свежих ставок для лота по его идентификатору;*/
 SELECT user_id, lot, added_on, offer from bid
