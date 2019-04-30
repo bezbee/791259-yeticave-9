@@ -35,14 +35,7 @@ JOIN bid b ON l.id = b.lot
 JOIN category  c ON l.category = c.id
 WHERE end_by > NOW()
 group by l.id, l.title, l.starting_price, l.image, c.category LIMIT 9';
-    $result = mysqli_query($link, $sql);
-
-    if ($result) {
-        $lots = mysqli_fetch_all($result, MYSQLI_ASSOC);
-    }
-    else {
-        print("Ощибка запроса: " . mysqli_error($link));
-    }
+    $lots = db_fetch_data($link, $sql);
 };
 
 //Отправьте SQL-запрос для получения списка категорий;
