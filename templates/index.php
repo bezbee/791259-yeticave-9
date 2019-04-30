@@ -13,7 +13,7 @@
     <div class="lots__header">
         <h2>Открытые лоты</h2>
     </div>
-    <ul class="lots__list">
+     <ul class="lots__list">
         <?php foreach ($lots as $key => $item): ?>
             <li class="lots__item lot">
                 <div class="lot__image">

@@ -19,7 +19,8 @@ function calculateTimeTillMidnight() {
 function fetch_db_data ($con, $sql) {
     $result = mysqli_query($con, $sql);
     if (!$result) {
-        echo mysqli_error($con);
+        $error =  mysqli_error($con);
+        print $page_content = include_template('error.php', ['error' => $error]);
         die();
     } else {
         $data = mysqli_fetch_all($result, MYSQLI_ASSOC);

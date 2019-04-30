@@ -1,4 +1,5 @@
 
 <?php
-echo $error;
+echo '<h2>Ошибка:</h2> ' . $error; ?>
+
 
