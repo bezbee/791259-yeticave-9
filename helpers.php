@@ -152,16 +152,15 @@ function db_fetch_data($link, $sql, $data = []) {
     if ($res) {
     $result = mysqli_fetch_all($res, MYSQLI_ASSOC);
     }
-return $result;
-};
+    return $result;
+}
 
 //Добавление новой записи
-
-function db_insert_data($link, $sql, $data = []){
+function db_insert_data($link, $sql, $data = []) {
     $stmt = db_get_prepare_stmt($link, $sql, $data);
     $result = mysqli_stmt_execute($stmt);
     if ($result) {
-        $result = mysqli_insert_id($link);}
-
+        $result = mysqli_insert_id($link);
+    }
     return $result;
 }
