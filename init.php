@@ -1,4 +1,8 @@
 <?php
+require_once('functions.php');
+require_once('helpers.php');
+require_once('data.php');
+
 $link = mysqli_connect('mysql', 'root', 'root', 'yeticave');
 mysqli_set_charset($link, "utf8");
 

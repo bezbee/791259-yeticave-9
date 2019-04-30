@@ -1,7 +1,4 @@
 <?php
-require_once('functions.php');
-require_once('helpers.php');
-
 //В сценарии главной страницы выполните подключение к MySQL;
 require_once('init.php');
 
