@@ -16,6 +16,13 @@ function calculateTimeTillMidnight() {
     return $hours . ":" . $minutes;
 };
 
+function showTime ($timestamp) {
+    $unix = strtotime($timestamp);
+    $hours =  floor($unix / 3600);
+    $minutes = floor(($unix % 3600)/ 60);
+    return $hours . ":" . $minutes;
+}
+
 function fetch_db_data ($con, $sql) {
     $result = mysqli_query($con, $sql);
     if (!$result) {

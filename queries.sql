@@ -76,3 +76,14 @@ WHERE id = '5';
 SELECT user_id, lot, added_on, offer from bid
 WHERE bid.lot = '3'
 order by added_on DESC;
+
+
+SELECT l.*, c.category from lot l  
+JOIN category c ON l.category = c.id
+WHERE end_by > NOW() ORDER BY created_on;
+
+Update lot
+set image = 'img/lot-6.jpg'
+where id = '6';
+
+SELECT l.*, c.category from lot l JOIN category c ON l.category = c.id WHERE l.id=5;
