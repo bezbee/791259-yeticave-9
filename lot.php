@@ -6,7 +6,11 @@ if(!isset($_GET['id'])) {
 } else {
     $id = intval($_GET['id']);
     $lot = db_fetch_single_data($link,
-        "SELECT l.*, IFNULL(MAX(b.offer), l.starting_price) as price, c.category FROM lot l JOIN bid b ON l.id = b.lot JOIN category c ON l.category = c.id WHERE l.id = ?", [$id]);
+        "SELECT l.title, l.description, l.starting_price, l.image, l.end_by, IFNULL(MAX(b.offer), l.starting_price) as price, c.category FROM lot l 
+    LEFT OUTER JOIN bid b ON l.id = b.lot 
+    JOIN category  c ON l.category = c.id 
+    WHERE l.id = ? 
+    GROUP BY l.title, l.description, l.starting_price, l.image, l.end_by, c.category", [$id]);
     if($lot == NULL) {
         show_error();
     }
