@@ -155,6 +155,17 @@ function db_fetch_data($link, $sql, $data = []) {
     return $result;
 }
 
+function db_fetch_single_data($con, $sql, $data = []) {
+    $result = [];
+    $stmt = db_get_prepare_stmt($con, $sql, $data);
+    mysqli_stmt_execute($stmt);
+    $res = mysqli_stmt_get_result($stmt);
+    if ($res) {
+        $result = mysqli_fetch_assoc($res);
+    }
+    return $result;
+}
+
 //Добавление новой записи
 function db_insert_data($link, $sql, $data = []) {
     $stmt = db_get_prepare_stmt($link, $sql, $data);
