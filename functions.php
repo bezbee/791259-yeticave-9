@@ -34,3 +34,10 @@ function fetch_db_data ($con, $sql) {
     }
     return $data;
 }
+
+function show_error () {
+    http_response_code('404');
+    $error = "Страница не найдена.";
+    print $page_content = include_template('error.php', ['error' => $error]);
+    die();
+}

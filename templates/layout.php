@@ -42,7 +42,8 @@
         </div>
     </header>
 
-    <main class="container">
+    <main class="<?=$main_class ?>">
+        <?=$menu?>
        <?=$content ?>
     </main>
 </div>
