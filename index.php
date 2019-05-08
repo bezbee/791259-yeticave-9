@@ -1,4 +1,5 @@
 <?php
+declare(strict_types = 1);
 //В сценарии главной страницы выполните подключение к MySQL;
 require_once('init.php');
 
