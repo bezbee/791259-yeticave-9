@@ -31,7 +31,7 @@ function fetch_db_data (mysqli $con, string $sql): ?array
     return $data;
 }
 
-function db_fetch_single_data(mysqli $con, string $sql, $data = []): ?array
+function db_fetch_single_data(mysqli $con, string $sql, array $data = []): ?array
 {
     $result = [];
     $stmt = db_get_prepare_stmt($con, $sql, $data);
@@ -43,7 +43,7 @@ function db_fetch_single_data(mysqli $con, string $sql, $data = []): ?array
     return $result;
 }
 
-function db_insert_data(mysqli $con, string $sql, $data = []): ?array
+function db_insert_data(mysqli $con, string $sql, array $data = []): ?array
 {
     $stmt = db_get_prepare_stmt($con, $sql, $data);
     $result = mysqli_stmt_execute($stmt);
@@ -62,4 +62,14 @@ function show_error () {
     $error = "Страница не найдена.";
     print $page_content = include_template('error.php', ['error' => $error]);
     die();
+}
+
+function date_diff_days(string $date1, string $date2 = 'now'): int
+{
+    $dateObj1 = new DateTime($date1);
+    $dateObj2 = new DateTime($date2);
+
+    $diff = $dateObj1->diff($dateObj2);
+
+    return (int) $diff->format('%a');
 }
