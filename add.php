@@ -36,7 +36,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $error_count++;
     }
 
-    if($_POST['lot-date'] < new DateTime('now')) {
+    if(new DateTime($_POST['lot-date']) < new DateTime()) {
         $errors['lot-date'] = "Введите дату в будущем";
         $error_count++;
     }
