@@ -1,0 +1,69 @@
+<?php
+declare(strict_types = 1);
+require_once('init.php');
+$categories = fetch_db_data($link, 'SELECT * FROM category');
+
+$errors = [
+    'email' => NULL,
+    'password'  => NULL,
+    'name' => NULL,
+    'message' => NULL
+];
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST')  {
+    $required = ['email', 'password', 'name', 'message'];
+    $error_count = 0;
+
+    if(!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
+        $errors['email'] = "Email  должен быть корреткным";
+        $error_count++;
+    }
+
+    foreach ($required as $key) {
+        if(empty($_POST[$key])) {
+            $errors[$key] = 'Это поле обязательно для заполнения';
+            $error_count++;
+        }
+    }
+
+    if($error_count) {
+        $page_content = include_template('sign-up.php', [
+            'errors' => $errors,
+            'form_class' => 'form--invalid'
+        ]);
+    } else {
+        $password_hash = password_hash($_POST['password'], PASSWORD_DEFAULT);
+        $sql = "INSERT into user (registered_on, email, name, password, contact) VALUES (NOW(), ?, ?, ?, ?)";
+        $data = [$_POST['email'], $_POST['name'], $password_hash, $_POST['message']];
+        $stmt = db_get_prepare_stmt($link, $sql, $data);
+        $result = mysqli_stmt_execute($stmt);
+        if($result) {
+            header("Location: login.php");
+        } else {
+            print $page_content = include_template('error.php', [
+                'error' => mysqli_error($link)]);
+            die();
+        }
+    }
+
+} else {
+    $page_content = include_template('sign-up.php', [
+        'form_class' => '',
+        'errors' => $errors,
+    ]);
+}
+
+
+$menu = include_template('menu_lot.php');
+
+$layout_content = include_template('layout.php', [
+    'main_class' => $main_class = ' ',
+    'menu' => $menu,
+    'content' => $page_content,
+    'categories' => $categories,
+    'is_auth' => $is_auth,
+    'user_name' => $user_name,
+    'title' => 'Регистрация нового аккаунта'
+]);
+
+print($layout_content);

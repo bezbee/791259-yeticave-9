@@ -16,7 +16,6 @@ $errors = [
 ];
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    var_dump($_POST['category']);
     $user_lot = $_POST;
     $required = ['category', 'lot-name', 'message', 'lot-rate', 'lot-step', 'lot-date'];
     $error_count = 0;

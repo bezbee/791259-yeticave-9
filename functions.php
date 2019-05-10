@@ -53,6 +53,7 @@ function db_insert_data(mysqli $con, string $sql, array $data = []): ?array
     } else {
         print $page_content = include_template('error.php', [
             'error' => mysqli_error($con)]);
+        die();
     }
     return $result;
 }
