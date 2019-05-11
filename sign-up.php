@@ -69,7 +69,8 @@ $layout_content = include_template('layout.php', [
     'categories' => get_categories($link),
     'is_auth' => $is_auth,
     'user_name' => $user_name,
-    'title' => 'Регистрация нового аккаунта'
+    'title' => 'Регистрация нового аккаунта',
+    'logo_link' => '/index.php'
 ]);
 
 print($layout_content);

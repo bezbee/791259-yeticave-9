@@ -102,7 +102,8 @@ $layout_content = include_template('layout.php', [
     'categories' => get_categories($link),
     'is_auth' => $is_auth,
     'user_name' => $user_name,
-    'title' => 'Добавить лот'
+    'title' => 'Добавить лот',
+    'logo_link' => '/index.php'
     ]);
 
 print($layout_content);
