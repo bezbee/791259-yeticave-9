@@ -4,7 +4,6 @@ declare(strict_types = 1);
 $category = $_POST['category'] ?? '';
 
 require_once('init.php');
-$categories = fetch_db_data($link, 'SELECT * FROM category');
 $errors = [
     'category' => NULL,
     'lot-name'  => NULL,
@@ -52,7 +51,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
     }
 
-    if(!isset($_FILES['lot-image'])) {
+    if(isset($_FILES['lot-image'])) {
         $tmp_name = $_FILES['lot-image']['tmp_name'];
         $path = $_FILES['lot-image']['name'];
 
@@ -76,18 +75,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $page_content = include_template('add.php', [
             'user_lot' => $user_lot,
             'errors' => $errors,
-            'categories'=> $categories,
+            'categories'=> get_categories($link),
             'form_class' => 'form--invalid',
             'category' => $category
         ]);
     }
     else {
-        db_insert_data($link,"INSERT into lot (user_id, category, created_on, title, description, image, starting_price, end_by, bid_step) VALUES (2, ?, NOW(), ?, ?, ?, ?, ?, ? )", [$user_lot['category'], $user_lot['lot-name'], $user_lot['message'], $user_lot['path'], $user_lot['lot-rate'], $user_lot['lot-date'], $user_lot['lot-step']]);
+        db_insert_data($link,"INSERT into lot (user_id, category, created_on, title, description, image, starting_price, end_by, bid_step) VALUES (2, ?, NOW(), ?, ?, ?, ?, ?, ? )", [$category, $user_lot['lot-name'], $user_lot['message'], $user_lot['path'], $user_lot['lot-rate'], $user_lot['lot-date'], $user_lot['lot-step']]);
     }
 }
 else {
     $page_content = include_template('add.php', [
-        'categories'=> $categories,
+        'categories'=> get_categories($link),
         'form_class' => '',
         'errors' => $errors,
         'category' => $category
@@ -100,7 +99,7 @@ $layout_content = include_template('layout.php', [
     'main_class' => $main_class = ' ',
     'menu' => $menu,
     'content' => $page_content,
-    'categories' => $categories,
+    'categories' => get_categories($link),
     'is_auth' => $is_auth,
     'user_name' => $user_name,
     'title' => 'Добавить лот'

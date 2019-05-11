@@ -3,10 +3,11 @@
     <?php
     $classname = $errors['email'] ? "form__item--invalid"  : "";
     $error_message = $errors['email'];
+    $value = isset($_POST['email']) ? $_POST['email'] : "";
     ?>
     <div class="form__item <?=$classname; ?>"> <!-- form__item--invalid -->
         <label for="email">E-mail <sup>*</sup></label>
-        <input id="email" type="text" name="email" placeholder="Введите e-mail">
+        <input id="email" type="text" name="email" placeholder="Введите e-mail" value="<?=$value; ?>">
         <span class="form__error"><?=$error_message?></span>
     </div>
     <?php
@@ -19,10 +20,11 @@
     </div>
      <?php
      $classname = $errors['name'] ? "form__item--invalid"  : "";
-     $error_message = $errors['name']; ?>
+     $error_message = $errors['name'];
+     $value = isset($_POST['name']) ? $_POST['name'] : "";?>
     <div class="form__item <?=$classname; ?>">
         <label for="name">Имя <sup>*</sup></label>
-        <input id="name" type="text" name="name" placeholder="Введите имя">
+        <input id="name" type="text" name="name" placeholder="Введите имя" value="<?=$value ?>">
         <span class="form__error"><?=$error_message; ?></span>
     </div>
     <?php

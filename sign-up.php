@@ -1,7 +1,6 @@
 <?php
 declare(strict_types = 1);
 require_once('init.php');
-$categories = fetch_db_data($link, 'SELECT * FROM category');
 
 $errors = [
     'email' => NULL,
@@ -11,6 +10,7 @@ $errors = [
 ];
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST')  {
+
     $required = ['email', 'password', 'name', 'message'];
     $error_count = 0;
 
@@ -18,7 +18,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')  {
         $errors['email'] = "Email  должен быть корреткным";
         $error_count++;
     }
-
+    $emails = fetch_db_data($link, "SELECT email from user");
+    foreach($emails as $existing_email) {
+        if(filter_var($_POST['email']) == $existing_email['email']) {
+            $errors['email'] = "Пользователь с таким email уже существует";
+            $error_count++;
+        }
+    }
     foreach ($required as $key) {
         if(empty($_POST[$key])) {
             $errors[$key] = 'Это поле обязательно для заполнения';
@@ -42,7 +48,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')  {
         } else {
             print $page_content = include_template('error.php', [
                 'error' => mysqli_error($link)]);
-            die();
+                 die();
         }
     }
 
@@ -60,7 +66,7 @@ $layout_content = include_template('layout.php', [
     'main_class' => $main_class = ' ',
     'menu' => $menu,
     'content' => $page_content,
-    'categories' => $categories,
+    'categories' => get_categories($link),
     'is_auth' => $is_auth,
     'user_name' => $user_name,
     'title' => 'Регистрация нового аккаунта'
