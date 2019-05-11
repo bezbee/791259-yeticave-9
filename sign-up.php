@@ -39,17 +39,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')  {
         ]);
     } else {
         $password_hash = password_hash($_POST['password'], PASSWORD_DEFAULT);
-        $sql = "INSERT into user (registered_on, email, name, password, contact) VALUES (NOW(), ?, ?, ?, ?)";
-        $data = [$_POST['email'], $_POST['name'], $password_hash, $_POST['message']];
-        $stmt = db_get_prepare_stmt($link, $sql, $data);
-        $result = mysqli_stmt_execute($stmt);
-        if($result) {
-            header("Location: login.php");
-        } else {
-            print $page_content = include_template('error.php', [
-                'error' => mysqli_error($link)]);
-                 die();
-        }
+        db_insert_data($link, "INSERT into user (registered_on, email, name, password, contact) VALUES (NOW(), ?, ?, ?, ?)", [$_POST['email'], $_POST['name'], $password_hash, $_POST['message']] );
+        header("Location: login.php");
     }
 
 } else {

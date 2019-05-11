@@ -1,9 +1,12 @@
 <?php
 declare(strict_types = 1);
-
-$category = $_POST['category'] ?? '';
-
 require_once('init.php');
+$category = $_POST['category'] ?? '';
+$categories = get_categories($link);
+
+$last_userlot_id = '';
+
+
 $errors = [
     'category' => NULL,
     'lot-name'  => NULL,
@@ -75,18 +78,19 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $page_content = include_template('add.php', [
             'user_lot' => $user_lot,
             'errors' => $errors,
-            'categories'=> get_categories($link),
+            'categories'=> $categories,
             'form_class' => 'form--invalid',
             'category' => $category
         ]);
     }
     else {
-        db_insert_data($link,"INSERT into lot (user_id, category, created_on, title, description, image, starting_price, end_by, bid_step) VALUES (2, ?, NOW(), ?, ?, ?, ?, ?, ? )", [$category, $user_lot['lot-name'], $user_lot['message'], $user_lot['path'], $user_lot['lot-rate'], $user_lot['lot-date'], $user_lot['lot-step']]);
+        $last_userlot_id = db_insert_data($link,"INSERT into lot (user_id, category, created_on, title, description, image, starting_price, end_by, bid_step) VALUES (2, ?, NOW(), ?, ?, ?, ?, ?, ? )", [$category, $user_lot['lot-name'], $user_lot['message'], $user_lot['path'], $user_lot['lot-rate'], $user_lot['lot-date'], $user_lot['lot-step']]);
+        header("Location: lot.php?id=" . $last_userlot_id);
     }
 }
 else {
     $page_content = include_template('add.php', [
-        'categories'=> get_categories($link),
+        'categories'=> $categories,
         'form_class' => '',
         'errors' => $errors,
         'category' => $category
@@ -99,7 +103,7 @@ $layout_content = include_template('layout.php', [
     'main_class' => $main_class = ' ',
     'menu' => $menu,
     'content' => $page_content,
-    'categories' => get_categories($link),
+    'categories' => $categories,
     'is_auth' => $is_auth,
     'user_name' => $user_name,
     'title' => 'Добавить лот',
