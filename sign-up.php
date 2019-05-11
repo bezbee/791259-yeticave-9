@@ -41,6 +41,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')  {
         $password_hash = password_hash($_POST['password'], PASSWORD_DEFAULT);
         db_insert_data($link, "INSERT into user (registered_on, email, name, password, contact) VALUES (NOW(), ?, ?, ?, ?)", [$_POST['email'], $_POST['name'], $password_hash, $_POST['message']] );
         header("Location: login.php");
+        exit();
     }
 
 } else {
