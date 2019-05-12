@@ -11,3 +11,7 @@ if (!$link) {
     print $page_content = include_template('error.php', ['error' => $error]);
     die();
 }
+
+function get_categories ($con) {
+    return $categories = fetch_db_data($con, 'SELECT * FROM category');
+};

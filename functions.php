@@ -43,16 +43,16 @@ function db_fetch_single_data(mysqli $con, string $sql, array $data = []): ?arra
     return $result;
 }
 
-function db_insert_data(mysqli $con, string $sql, array $data = []): ?array
+function db_insert_data(mysqli $con, string $sql, array $data = []): int
 {
     $stmt = db_get_prepare_stmt($con, $sql, $data);
     $result = mysqli_stmt_execute($stmt);
     if($result) {
-        $last_userlot_id = mysqli_insert_id($con);
-        header("Location: lot.php?id=" . $last_userlot_id);
+        $result = mysqli_insert_id($con);
     } else {
         print $page_content = include_template('error.php', [
             'error' => mysqli_error($con)]);
+        die();
     }
     return $result;
 }

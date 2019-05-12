@@ -33,7 +33,8 @@ $layout_content = include_template('layout.php', [
     'lot' => $lot,
     'is_auth' => $is_auth,
     'user_name' => $user_name,
-    'title' => $lot['title']
+    'title' => $lot['title'],
+    'logo_link' => "/index.php"
 ]);
 
 print($layout_content);

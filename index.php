@@ -24,6 +24,7 @@ $layout_content = include_template('layout.php', [
     'categories' => $categories,
     'is_auth' => $is_auth,
     'user_name' => $user_name,
-    'title' => 'Yeticave - Главная'
+    'title' => 'Yeticave - Главная',
+    'logo_link' => ''
 ]);
 print($layout_content);

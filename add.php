@@ -1,10 +1,12 @@
 <?php
 declare(strict_types = 1);
-
-$category = $_POST['category'] ?? '';
-
 require_once('init.php');
-$categories = fetch_db_data($link, 'SELECT * FROM category');
+$category = $_POST['category'] ?? '';
+$categories = get_categories($link);
+
+$last_userlot_id = '';
+
+
 $errors = [
     'category' => NULL,
     'lot-name'  => NULL,
@@ -16,7 +18,6 @@ $errors = [
 ];
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    var_dump($_POST['category']);
     $user_lot = $_POST;
     $required = ['category', 'lot-name', 'message', 'lot-rate', 'lot-step', 'lot-date'];
     $error_count = 0;
@@ -53,7 +54,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
     }
 
-    if(!isset($_FILES['lot-image'])) {
+    if(isset($_FILES['lot-image'])) {
         $tmp_name = $_FILES['lot-image']['tmp_name'];
         $path = $_FILES['lot-image']['name'];
 
@@ -83,7 +84,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         ]);
     }
     else {
-        db_insert_data($link,"INSERT into lot (user_id, category, created_on, title, description, image, starting_price, end_by, bid_step) VALUES (2, ?, NOW(), ?, ?, ?, ?, ?, ? )", [$user_lot['category'], $user_lot['lot-name'], $user_lot['message'], $user_lot['path'], $user_lot['lot-rate'], $user_lot['lot-date'], $user_lot['lot-step']]);
+        $last_userlot_id = db_insert_data($link,"INSERT into lot (user_id, category, created_on, title, description, image, starting_price, end_by, bid_step) VALUES (2, ?, NOW(), ?, ?, ?, ?, ?, ? )", [$category, $user_lot['lot-name'], $user_lot['message'], $user_lot['path'], $user_lot['lot-rate'], $user_lot['lot-date'], $user_lot['lot-step']]);
+        header("Location: lot.php?id=" . $last_userlot_id);
+        exit();
     }
 }
 else {
@@ -104,7 +107,8 @@ $layout_content = include_template('layout.php', [
     'categories' => $categories,
     'is_auth' => $is_auth,
     'user_name' => $user_name,
-    'title' => 'Добавить лот'
+    'title' => 'Добавить лот',
+    'logo_link' => '/index.php'
     ]);
 
 print($layout_content);

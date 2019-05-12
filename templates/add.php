@@ -19,8 +19,8 @@
             <select id="category" name="category">
                 <option value="">Выберите категорию</option>
                 <?php foreach ($categories as $key => $cat): ?>
-                <option value="<?=$cat['category']; ?>"
-                <?= $category == $cat['category'] ? "selected" : "";?>
+                <option value="<?=$cat['id']; ?>"
+                <?= $category == $cat['id'] ? "selected" : "";?>
                 ><?=$cat['category']; ?></option>
                 <?php endforeach; ?>
             </select>
