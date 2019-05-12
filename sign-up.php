@@ -18,13 +18,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')  {
         $errors['email'] = "Email  должен быть корреткным";
         $error_count++;
     }
-    $emails = fetch_db_data($link, "SELECT email from user");
-    foreach($emails as $existing_email) {
-        if(filter_var($_POST['email']) == $existing_email['email']) {
+    $check_unique_email = db_fetch_single_data($link, "SELECT count(*) from user where email = ?", [filter_var($_POST['email'])]);
+    if($check_unique_email !== 0) {
             $errors['email'] = "Пользователь с таким email уже существует";
             $error_count++;
         }
-    }
     foreach ($required as $key) {
         if(empty($_POST[$key])) {
             $errors[$key] = 'Это поле обязательно для заполнения';
