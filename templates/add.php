@@ -1,3 +1,13 @@
+<?php
+require_once('init.php');
+session_start();
+if(!isset($_SESSION['user'])) {
+    header("http_response_code: 403");
+    $error = "Ошибка 403";
+    print($page_content = include_template('error.php', ['error' => $error]));
+    exit();
+}
+?>
 <form class="form form--add-lot container form--invalid <?=$form_class; ?>" action="" method="post" enctype="multipart/form-data">
     <h2>Добавление лота</h2>
     <div class="form__container-two">

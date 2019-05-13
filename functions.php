@@ -58,7 +58,7 @@ function db_insert_data(mysqli $con, string $sql, array $data = []): int
 }
 
 function show_error () {
-    http_response_code('404');
+    http_response_code(404);
     $error = "Страница не найдена.";
     print $page_content = include_template('error.php', ['error' => $error]);
     die();
