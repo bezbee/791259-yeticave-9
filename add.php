@@ -90,13 +90,25 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 }
 else {
-    $page_content = include_template('add.php', [
-        'categories'=> $categories,
-        'form_class' => '',
-        'errors' => $errors,
-        'category' => $category
-    ]);
+    if (!isset($_SESSION['user'])) {
+        header("http_response_code: 403");
+        $error = "Ошибка 403";
+        print($page_content = include_template('error.php', ['error' => $error]));
+        exit();
+    } else {
+        $page_content = include_template('add.php', [
+            'categories' => $categories,
+            'form_class' => '',
+            'errors' => $errors,
+            'category' => $category
+        ]);
+    }
 }
+
+
+
+
+
 
 $menu = include_template('menu_lot.php');
 

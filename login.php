@@ -1,6 +1,7 @@
 <?php
 declare(strict_types = 1);
 include_once('init.php');
+session_start();
 $categories = get_categories($link);
 $errors = [
     'email' => NULL,
@@ -12,19 +13,19 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
     if(!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
         $errors['email'] = 'Введите правильный email';
         $error_count++;
-    }
-
-    $check_existing_user = db_fetch_single_data($link, "SELECT * from user where email = ?", [filter_var($_POST['email'])]);
-    if($check_existing_user) {
-        if (password_verify($_POST['password'], $check_existing_user['password'])) {
-            session_start();
-            $_SESSION['user'] = $check_existing_user;
-        } else {
-            $errors['password'] = 'Пароль введен неверно';
-            $error_count++;
-            }
     } else {
-        $errors['email'] = 'Пользователь не найден';
+        $user = db_fetch_single_data($link, "SELECT * from user where email = ?",
+            [filter_var($_POST['email'])]);
+        if ($user) {
+            if (password_verify($_POST['password'], $user['password'])) {
+                $_SESSION['user'] = $user;
+            } else {
+                $errors['password'] = 'Пароль введен неверно';
+                $error_count++;
+            }
+        } else {
+            $errors['email'] = 'Пользователь не найден';
+        }
     }
 
     $required_fields = ['email', 'password'];
@@ -41,7 +42,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
             'form_class' => 'form--invalid'
         ]);
     } else {
-        header("Location: index.php");
+        header('Location: index.php');
         exit();
     }
 

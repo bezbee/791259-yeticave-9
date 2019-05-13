@@ -10,7 +10,6 @@
         </div>
         <div class="lot-item__right">
             <?php
-            session_start();
             if(isset($_SESSION['user'])): ?>
             <div class="lot-item__state">
                 <div class="lot-item__timer timer <?php
