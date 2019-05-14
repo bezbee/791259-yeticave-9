@@ -1,7 +1,6 @@
 <?php
 declare(strict_types = 1);
 require_once('init.php');
-session_start();
 
 if(!isset($_GET['id'])) {
     show_error();

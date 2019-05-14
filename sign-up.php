@@ -18,8 +18,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')  {
         $errors['email'] = "Email  должен быть корреткным";
         $error_count++;
     } else {
-        $result = db_fetch_single_data($link, "SELECT count(*) from user where email = ?", [filter_var($_POST['email'])]);
-        if($result['count(*)']) {
+        $result = db_fetch_single_data($link, "SELECT count(*) as count_users_with_same_email from user where email = ?", [filter_var($_POST['email'])]);
+        if($result['count_users_with_same_email']) {
             $errors['email'] = "Пользователь с таким email уже существует";
             $error_count++;
         }

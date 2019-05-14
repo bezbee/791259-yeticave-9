@@ -1,7 +1,6 @@
 <?php
 declare(strict_types = 1);
 include_once('init.php');
-session_start();
 $categories = get_categories($link);
 $errors = [
     'email' => NULL,
