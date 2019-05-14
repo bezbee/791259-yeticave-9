@@ -17,12 +17,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')  {
     if(!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
         $errors['email'] = "Email  должен быть корреткным";
         $error_count++;
-    }
-    $check_unique_email = db_fetch_single_data($link, "SELECT count(*) from user where email = ?", [filter_var($_POST['email'])]);
-    if($check_unique_email !== 0) {
+    } else {
+        $result = db_fetch_single_data($link, "SELECT count(*) as count_users_with_same_email from user where email = ?", [filter_var($_POST['email'])]);
+        if($result['count_users_with_same_email']) {
             $errors['email'] = "Пользователь с таким email уже существует";
             $error_count++;
         }
+    }
     foreach ($required as $key) {
         if(empty($_POST[$key])) {
             $errors[$key] = 'Это поле обязательно для заполнения';
@@ -38,7 +39,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')  {
     } else {
         $password_hash = password_hash($_POST['password'], PASSWORD_DEFAULT);
         db_insert_data($link, "INSERT into user (registered_on, email, name, password, contact) VALUES (NOW(), ?, ?, ?, ?)", [$_POST['email'], $_POST['name'], $password_hash, $_POST['message']] );
-        header("Location: login.php");
+        header('Location: /login.php');
         exit();
     }
 
