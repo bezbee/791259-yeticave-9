@@ -18,6 +18,15 @@ function showTime (string $timestamp):string
     return $hours . ":" . $minutes;
 }
 
+function showTimeAddSec (string $timestamp):string
+{
+    $unix = strtotime($timestamp);
+    $hours =  floor($unix / 3600);
+    $minutes = floor(($unix % 3600) / 60);
+    $seconds = floor(($unix % 3600) / 3600);
+    return $hours . ":" . $minutes . ":" . $seconds;
+}
+
 function fetch_db_data (mysqli $con, string $sql): ?array
 {
     $result = mysqli_query($con, $sql);
@@ -72,4 +81,21 @@ function date_diff_days(string $date1, string $date2 = 'now'): int
     $diff = $dateObj1->diff($dateObj2);
 
     return (int) $diff->format('%a');
+}
+
+function calculate_bid_times (string $time_of_bid) {
+    $sec_since_posted = strtotime('now') - strtotime($time_of_bid);
+    $h_since_posted = floor($sec_since_posted/3600);
+    $min_since_posted = floor(($sec_since_posted % 3600) / 60);
+    if ($h_since_posted < 1) {
+        echo $min_since_posted . ' мин. назад';
+    } else if ($h_since_posted == 1 and $h_since_posted < 2) {
+        echo "час назад";
+    } else if ($h_since_posted >= 2 and $h_since_posted < 24) {
+        echo $h_since_posted . ' ч. назад';
+    } else if($h_since_posted >= 24 and $h_since_posted < 48) {
+        echo  'вчера в ' . floor($h_since_posted/24) .':' .  $min_since_posted;
+    } else {
+        echo date_format(date_create($time_of_bid), 'd.m.Y в H:i');
+    }
 }

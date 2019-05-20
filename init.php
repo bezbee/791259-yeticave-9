@@ -1,7 +1,6 @@
 <?php
 require_once('functions.php');
 require_once('helpers.php');
-require_once('data.php');
 session_start();
 
 $link = mysqli_connect('mysql', 'root', 'root', 'yeticave');

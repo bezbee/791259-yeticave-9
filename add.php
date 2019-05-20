@@ -84,7 +84,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         ]);
     }
     else {
-        $last_userlot_id = db_insert_data($link,"INSERT into lot (user_id, category, created_on, title, description, image, starting_price, end_by, bid_step) VALUES (2, ?, NOW(), ?, ?, ?, ?, ?, ? )", [$category, $user_lot['lot-name'], $user_lot['message'], $user_lot['path'], $user_lot['lot-rate'], $user_lot['lot-date'], $user_lot['lot-step']]);
+        $last_userlot_id = db_insert_data($link,"INSERT into lot (user_id, category, created_on, title, description, image, starting_price, end_by, bid_step) VALUES (?, ?, NOW(), ?, ?, ?, ?, ?, ? )", [$_SESSION['user']['id'],$category, $user_lot['lot-name'], $user_lot['message'], $user_lot['path'], $user_lot['lot-rate'], $user_lot['lot-date'], $user_lot['lot-step']]);
         header("Location: lot.php?id=" . $last_userlot_id);
         exit();
     }
@@ -117,8 +117,6 @@ $layout_content = include_template('layout.php', [
     'menu' => $menu,
     'content' => $page_content,
     'categories' => $categories,
-    'is_auth' => $is_auth,
-    'user_name' => $user_name,
     'title' => 'Добавить лот',
     'logo_link' => '/index.php'
     ]);
