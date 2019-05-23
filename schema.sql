@@ -29,6 +29,7 @@ CREATE TABLE lot (
                    FOREIGN KEY (user_id) REFERENCES user(id),
                    winner INT,
                    FOREIGN KEY (winner) REFERENCES user(id),
+                   winner_bid_id INT,
                    category INT,
                    FOREIGN KEY (category) REFERENCES category(id),
                    created_on TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
