@@ -53,7 +53,9 @@ if(!isset($_GET['id'])) {
                 'lot' => $lot,
                 'price_plus_bid' => $price_plus_bid,
                 'errors' => $errors,
-                'form_class' => 'form--invalid'
+                'form_class' => 'form--invalid',
+                'bid_list' => $bid_list,
+                'is_current_user_created' => $is_current_user_created
             ]);
         }
     }

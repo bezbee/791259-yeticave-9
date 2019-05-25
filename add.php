@@ -94,15 +94,14 @@ else {
         header("http_response_code: 403");
         $error = "Ошибка 403";
         print($page_content = include_template('error.php', ['error' => $error]));
-        exit();
-    } else {
+        exit(); }
+
         $page_content = include_template('add.php', [
             'categories' => $categories,
             'form_class' => '',
             'errors' => $errors,
             'category' => $category
         ]);
-    }
 }
 
 

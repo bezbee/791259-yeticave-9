@@ -13,8 +13,8 @@
                     <h3 class="lot__title"><a class="text-link" href="lot.php?id=<?=$item['id']; ?>"><?=htmlspecialchars($item['title']); ?></a></h3>
                     <div class="lot__state">
                         <div class="lot__rate">
-                            <span class="lot__amount">Стартовая цена</span>
-                            <span class="lot__cost"><?=formatPrice(htmlspecialchars($item['starting_price'])); ?></span>
+                            <span class="lot__amount"><?=$item['bid_count'] ? 'Кол-во ставок: ' . $item['bid_count'] : 'Стартовая цена'; ?></span>
+                            <span class="lot__cost"><?=formatPrice(htmlspecialchars($item['price'])); ?></span>
                         </div>
                         <div class="lot__timer timer <?php
                         if (showTime($item['end_by']) <= "1:00") {
