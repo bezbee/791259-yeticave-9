@@ -27,17 +27,20 @@ function showTimeAddSec (string $timestamp):string
     return $hours . ":" . $minutes . ":" . $seconds;
 }
 
-function fetch_db_data (mysqli $con, string $sql): ?array
+function fetch_db_data (mysqli $con, string $sql, array $data = []): ?array
 {
-    $result = mysqli_query($con, $sql);
-    if (!$result) {
+    $result = [];
+    $stmt = db_get_prepare_stmt($con, $sql, $data);
+    mysqli_stmt_execute($stmt);
+    $res = mysqli_stmt_get_result($stmt);
+    if (!$res) {
         $error =  mysqli_error($con);
         print $page_content = include_template('error.php', ['error' => $error]);
         die();
     } else {
-        $data = mysqli_fetch_all($result, MYSQLI_ASSOC);
+        $result = mysqli_fetch_all($res, MYSQLI_ASSOC);
     }
-    return $data;
+    return $result;
 }
 
 function db_fetch_single_data(mysqli $con, string $sql, array $data = []): ?array

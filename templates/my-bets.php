@@ -4,7 +4,7 @@
         <?php
         foreach($list_of_user_bids as $bid): ?>
         <tr class="rates__item<?php
-        $is_win = $bid['winner_bid_id'] == $bid['id'] ? true : false;
+        $is_win = $bid['winner_bid_id'] === $bid['id'] ? true : false;
         if($is_win) {
             echo ' rates__item--win';
         }

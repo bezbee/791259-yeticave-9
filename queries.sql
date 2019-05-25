@@ -76,5 +76,3 @@ WHERE id = '5';
 SELECT user_id, lot, added_on, offer from bid
 WHERE bid.lot = '3'
 order by added_on DESC;
-
-SElECT b.*, l.title, l.image, l.winner_bid_id, c.category as category, l.end_by, u.contact from bid b join lot l on b.lot = l.id join category c on l.category = c.id JOIN user u on l.user_id = u.id  WHERE b.user_id = 9 order by b.added_on DESC 
