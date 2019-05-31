@@ -54,5 +54,3 @@ CREATE TABLE bid (
                    added_on TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
                    offer INT UNSIGNED NOT NULL
 );
-
-CREATE INDEX added_bid ON bid(lot, added_on);

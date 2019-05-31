@@ -54,12 +54,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
     }
 
-    if(isset($_FILES['lot-image'])) {
+    if(isset($_FILES['lot-image']) AND $_FILES['lot-image']['size'] !== 0) {
+
         $tmp_name = $_FILES['lot-image']['tmp_name'];
         $path = $_FILES['lot-image']['name'];
 
         $finfo = finfo_open(FILEINFO_MIME_TYPE);
-        $file_type = finfo_file($finfo, $tmp_name);
+        $file_type = mime_content_type($tmp_name);
 
         if ($file_type !== "image/png" && $file_type !== "image/jpeg") {
             $errors['lot-image'] = 'Загрузите файл в формате jpeg или png';
@@ -91,8 +92,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 }
 else {
     if (!isset($_SESSION['user'])) {
-        header("http_response_code: 403");
-        $error = "Ошибка 403";
+        header("http_response_code: 401");
+        $error = "Ошибка 401";
         print($page_content = include_template('error.php', ['error' => $error]));
         exit(); }
 
@@ -109,7 +110,9 @@ else {
 
 
 
-$menu = include_template('menu_lot.php');
+$menu = include_template('menu_lot.php', [
+    'categories' => $categories
+]);
 
 $layout_content = include_template('layout.php', [
     'main_class' => $main_class = ' ',

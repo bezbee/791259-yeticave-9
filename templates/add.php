@@ -79,7 +79,7 @@
             <span class="form__error"><?=$error_message;?></span>
         </div>
     </div>
-    <span class="form__error form__error--bottom"></span>
+    <span class="form__error form__error--bottom"><?= all_null_recursive($errors) ? '' : 'Пожалуйста, исправьте ошибки в форме.' ?></span>
     <button type="submit" class="button">Добавить лот</button>
 </form>
 

@@ -1,12 +1,12 @@
 <section class="lot-item container">
-    <h2><?=$lot['title']; ?></h2>
+    <h2><?=htmlspecialchars($lot['title']); ?></h2>
     <div class="lot-item__content">
         <div class="lot-item__left">
             <div class="lot-item__image">
                 <img src="<?=$lot['image']; ?>" width="730" height="548" alt="Сноуборд">
             </div>
-            <p class="lot-item__category">Категория: <span><?= $lot['category']; ?></span></p>
-            <p class="lot-item__description"><?=$lot['description']; ?></p>
+            <p class="lot-item__category">Категория: <span><?= htmlspecialchars($lot['category']); ?></span></p>
+            <p class="lot-item__description"><?=htmlspecialchars($lot['description']); ?></p>
         </div>
         <div class="lot-item__right">
             <?php
@@ -21,10 +21,10 @@
                 <div class="lot-item__cost-state">
                     <div class="lot-item__rate">
                         <span class="lot-item__amount">Текущая цена</span>
-                        <span class="lot-item__cost"><?=$lot['price']; ?></span>
+                        <span class="lot-item__cost"><?=htmlspecialchars($lot['price']); ?></span>
                     </div>
                     <div class="lot-item__min-cost">
-                        Мин. ставка <span><?=$lot['bid_step']; ?></span>
+                        Мин. ставка <span><?=htmlspecialchars($lot['bid_step']); ?></span>
                     </div>
                 </div>
 

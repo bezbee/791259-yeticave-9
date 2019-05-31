@@ -33,7 +33,7 @@ if(!isset($_GET['id'])) {
         }
 
         if($bid < $price_plus_bid) {
-            $errors['cost'] = "Введите сумму равную или большую текущей цены и минимальной ставки";
+            $errors['cost'] = "Введите ставку равную или большую сумме текущей цены и минимальной ставки";
             $error_count++;
         }
 
@@ -63,7 +63,9 @@ if(!isset($_GET['id'])) {
 
 $categories = fetch_db_data($link, 'SELECT category, class FROM category');
 
-$menu = include_template('menu_lot.php');
+$menu = include_template('menu_lot.php',[
+    'categories' => $categories
+]);
 
 $page_content = include_template('lot.php', [
     'lot' => $lot,

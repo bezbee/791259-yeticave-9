@@ -16,7 +16,9 @@ if (!isset($_SESSION['user'])) {
         ]);
 }
 
-$menu = include_template('menu_lot.php');
+$menu = include_template('menu_lot.php', [
+    'categories' => $categories
+]);
 
 $layout_content = include_template('layout.php', [
     'main_class' => $main_class = ' ',
