@@ -76,3 +76,7 @@ WHERE id = '5';
 SELECT user_id, lot, added_on, offer from bid
 WHERE bid.lot = '3'
 order by added_on DESC;
+
+
+SELECT COUNT(*) as cnt FROM lot l WHERE l.end_by > NOW() AND MATCH(title, description) AGAINST('snowboard');
+

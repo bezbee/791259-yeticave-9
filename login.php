@@ -57,7 +57,9 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 
 
-$menu = include_template('menu_lot.php');
+$menu = include_template('menu_lot.php', [
+    'categories' => $categories
+]);
 
 $layout_content = include_template('layout.php', [
     'menu' => $menu,

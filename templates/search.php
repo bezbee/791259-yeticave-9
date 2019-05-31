@@ -37,3 +37,8 @@
         </ul>
     </section>
 </div>
+<?php if($pages_count > 1): ?>
+<div class="container">
+    <?=$pagination; ?>
+</div>
+<?php endif;?>

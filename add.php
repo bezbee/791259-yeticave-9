@@ -59,7 +59,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $path = $_FILES['lot-image']['name'];
 
         $finfo = finfo_open(FILEINFO_MIME_TYPE);
-        $file_type = finfo_file($finfo, $tmp_name);
+        $file_type = mime_content_type($tmp_name);
 
         if ($file_type !== "image/png" && $file_type !== "image/jpeg") {
             $errors['lot-image'] = 'Загрузите файл в формате jpeg или png';
@@ -109,7 +109,9 @@ else {
 
 
 
-$menu = include_template('menu_lot.php');
+$menu = include_template('menu_lot.php', [
+    'categories' => $categories
+]);
 
 $layout_content = include_template('layout.php', [
     'main_class' => $main_class = ' ',

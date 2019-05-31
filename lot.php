@@ -63,7 +63,9 @@ if(!isset($_GET['id'])) {
 
 $categories = fetch_db_data($link, 'SELECT category, class FROM category');
 
-$menu = include_template('menu_lot.php');
+$menu = include_template('menu_lot.php',[
+    'categories' => $categories
+]);
 
 $page_content = include_template('lot.php', [
     'lot' => $lot,

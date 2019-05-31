@@ -1,6 +1,13 @@
 <section class="lots">
     <div class="lots__header">
-        <h2>Открытые лоты</h2>
+        <?php
+        if(empty($lots)):?>
+            <h2>Открытыx лотов в категории "<?=$dict[$cat]; ?>" нет</h2>
+        <?php elseif($cat):  ?>
+            <h2>Все лоты в категории "<?=$dict[$cat]; ?>"</h2>
+        <?php else: ?>
+            <h2>Открытие лоты</h2>
+        <?php endif; ?>
     </div>
      <ul class="lots__list">
         <?php foreach ($lots as $key => $item): ?>
@@ -29,3 +36,7 @@
         <?php endforeach; ?>
     </ul>
 </section>
+<?php if($pages_count > 1) {
+ echo $pagination;
+};
+?>

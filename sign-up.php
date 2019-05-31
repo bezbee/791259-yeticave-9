@@ -50,14 +50,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')  {
     ]);
 }
 
-
-$menu = include_template('menu_lot.php');
+$categories = get_categories($link);
+$menu = include_template('menu_lot.php', [
+        'categories' => $categories
+    ]);
 
 $layout_content = include_template('layout.php', [
     'main_class' => $main_class = ' ',
     'menu' => $menu,
     'content' => $page_content,
-    'categories' => get_categories($link),
+    'categories' => $categories,
     'title' => 'Регистрация нового аккаунта',
     'logo_link' => '/index.php'
 ]);
