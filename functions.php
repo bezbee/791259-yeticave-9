@@ -102,3 +102,22 @@ function calculate_bid_times (string $time_of_bid) {
         echo date_format(date_create($time_of_bid), 'd.m.Y в H:i');
     }
 }
+
+function all_null_recursive($arr)
+{
+    foreach ($arr as $item) {
+
+        /* if the item is an array
+           and the function itself found something different from null */
+        if (is_array($item) && all_null_recursive($item) === false) {
+            return false;
+
+            // if the item is not an array and different from null
+        } elseif (!is_array($item) && $item !== null) {
+            return false;
+        }
+    }
+
+    // always found null, everything good
+    return true;
+}

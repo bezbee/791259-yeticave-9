@@ -54,7 +54,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
     }
 
-    if(isset($_FILES['lot-image'])) {
+    if(isset($_FILES['lot-image']) AND $_FILES['lot-image']['size'] !== 0) {
+
         $tmp_name = $_FILES['lot-image']['tmp_name'];
         $path = $_FILES['lot-image']['name'];
 
@@ -91,8 +92,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 }
 else {
     if (!isset($_SESSION['user'])) {
-        header("http_response_code: 403");
-        $error = "Ошибка 403";
+        header("http_response_code: 401");
+        $error = "Ошибка 401";
         print($page_content = include_template('error.php', ['error' => $error]));
         exit(); }
 

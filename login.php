@@ -19,11 +19,12 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
             if (password_verify($_POST['password'], $user['password'])) {
                 $_SESSION['user'] = $user;
             } else {
-                $errors['password'] = 'Пароль введен неверно';
+                $errors['password'] = 'Вы ввели неверный email/пароль';
                 $error_count++;
             }
         } else {
-            $errors['email'] = 'Пользователь не найден';
+            $errors['email'] = 'Вы ввели неверный email/пароль';
+            $error_count++;
         }
     }
 
