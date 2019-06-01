@@ -1,0 +1,12 @@
+{
+    "name": "zina/first",
+    "authors": [
+        {
+            "name": "xena",
+            "email": "zizu087@gmail.com"
+        }
+    ],
+    "require": {
+        "swiftmailer/swiftmailer": "^6.2"
+    }
+}
