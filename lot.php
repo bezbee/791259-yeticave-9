@@ -19,11 +19,11 @@ if(!isset($_GET['id'])) {
     WHERE l.id = ? 
     GROUP BY l.title, l.description, l.starting_price, l.image, l.end_by, l.bid_step, c.category", [$id]);
      $price_plus_bid = $lot['price'] + $lot['bid_step'];
-    if($lot == NULL) {
+    if($lot === NULL) {
         show_error();
     }
 
-    if($_SERVER['REQUEST_METHOD'] == 'POST') {
+    if($_SERVER['REQUEST_METHOD'] === 'POST') {
         $bid = $_POST['cost'] ?? '';
         $error_count = 0;
 

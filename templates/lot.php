@@ -47,8 +47,8 @@
                 foreach($bid_list as $bid): ?>
                 <table class="history__list">
                     <tr class="history__item">
-                        <td class="history__name"><?=$bid['name'];?></td>
-                        <td class="history__price"><?=$bid['offer'] . ' p'; ?></td>
+                        <td class="history__name"><?=htmlspecialchars($bid['name']);?></td>
+                        <td class="history__price"><?=htmlspecialchars($bid['offer']) . ' p'; ?></td>
                         <td class="history__time"><?=calculate_bid_times($bid['added_on']);
                         ?></td>
                     </tr>

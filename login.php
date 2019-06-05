@@ -8,7 +8,8 @@ $errors = [
 ];
 $error_count = 0;
 
-if($_SERVER['REQUEST_METHOD'] == 'POST') {
+
+if($_SERVER['REQUEST_METHOD'] === 'POST' AND !isset($_SESSION['user'])) {
     if(!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
         $errors['email'] = 'Введите правильный email';
         $error_count++;
@@ -46,11 +47,18 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
         exit();
     }
 
-}else {
-    $page_content = include_template('login.php', [
-        'form_class' => '',
-        'errors' => $errors
-    ]);
+} else {
+        if (isset($_SESSION['user'])) {
+            header("http_response_code: 403");
+            $error = "Ошибка 403";
+            print($page_content = include_template('error.php', ['error' => $error]));
+            exit(); }
+        else {
+            $page_content = include_template('login.php', [
+                'form_class' => '',
+                'errors' => $errors
+            ]);
+        }
 }
 
 

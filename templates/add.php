@@ -30,10 +30,11 @@
     <?php
     $classname = $errors['message'] ? "form__item--invalid" : "";
     $error_message = $errors['message'];
+    $value = isset($user_lot['message']) ? $user_lot['message'] : "";
    ?>
     <div class="form__item form__item--wide <?=$classname;?>">
         <label for="message">Описание <sup>*</sup></label>
-        <textarea id="message" name="message" placeholder="Напишите описание лота"></textarea>
+        <textarea id="message" name="message" placeholder="Напишите описание лота"><?=htmlspecialchars($value);?></textarea>
         <span class="form__error"><?=$error_message;?></span>
     </div>
     <?php

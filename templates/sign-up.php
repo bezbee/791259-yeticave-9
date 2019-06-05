@@ -24,15 +24,16 @@
      $value = isset($_POST['name']) ? $_POST['name'] : "";?>
     <div class="form__item <?=$classname; ?>">
         <label for="name">Имя <sup>*</sup></label>
-        <input id="name" type="text" name="name" placeholder="Введите имя" value="<?=$value ?>">
+        <input id="name" type="text" name="name" placeholder="Введите имя" value="<?=$value; ?>">
         <span class="form__error"><?=$error_message; ?></span>
     </div>
     <?php
     $classname = $errors['message'] ? "form__item--invalid"  : "";
-    $error_message = $errors['message']; ?>
+    $error_message = $errors['message'];
+    $value = isset($_POST['message']) ? $_POST['message'] : ""; ?>
     <div class="form__item <?=$classname; ?>">
         <label for="message">Контактные данные <sup>*</sup></label>
-        <textarea id="message" name="message" placeholder="Напишите как с вами связаться"></textarea>
+        <textarea id="message" name="message" placeholder="Напишите как с вами связаться"><?=htmlspecialchars($value);?></textarea>
         <span class="form__error"><?=$error_message; ?></span>
     </div>
     <button type="submit" class="button">Зарегистрироваться</button>

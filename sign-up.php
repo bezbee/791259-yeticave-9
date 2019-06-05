@@ -9,7 +9,7 @@ $errors = [
     'message' => NULL
 ];
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST')  {
+if ($_SERVER['REQUEST_METHOD'] === 'POST' AND !isset($_SESSION['user']))  {
 
     $required = ['email', 'password', 'name', 'message'];
     $error_count = 0;
@@ -44,10 +44,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')  {
     }
 
 } else {
-    $page_content = include_template('sign-up.php', [
-        'form_class' => '',
-        'errors' => $errors,
-    ]);
+    if (isset($_SESSION['user'])) {
+        header("http_response_code: 403");
+        $error = "Ошибка 403";
+        print($page_content = include_template('error.php', ['error' => $error]));
+        exit(); }
+    else {
+        $page_content = include_template('sign-up.php', [
+            'form_class' => '',
+            'errors' => $errors,
+        ]);
+    }
 }
 
 $categories = get_categories($link);

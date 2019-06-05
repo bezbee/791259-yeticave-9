@@ -1,6 +1,11 @@
 <?php
 declare(strict_types = 1);
 
+/**
+ * Добавляет знак рубля к сумме
+ * @param integer Сумма
+ * @return  string Сумма со знаком рубля
+ */
 function formatPrice (int $number):string
 {
     if ($number < 1000) {
@@ -10,6 +15,11 @@ function formatPrice (int $number):string
     }
 };
 
+/**
+ * Преобразовывает время в формат ЧЧ:ММ
+ * @param string $timestamp
+ * @return string
+ */
 function showTime (string $timestamp):string
 {
     $unix = strtotime($timestamp);
@@ -18,6 +28,11 @@ function showTime (string $timestamp):string
     return $hours . ":" . $minutes;
 }
 
+/**
+ * Преобразовывает время в формат ЧЧ:ММ:СС
+ * @param string $timestamp
+ * @return string
+ */
 function showTimeAddSec (string $timestamp):string
 {
     $unix = strtotime($timestamp);
@@ -27,6 +42,13 @@ function showTimeAddSec (string $timestamp):string
     return $hours . ":" . $minutes . ":" . $seconds;
 }
 
+/**
+ * Выборка данных из базы данных безопасным путем
+ * @param mysqli $con Подключение
+ * @param string $sql Запрос
+ * @param array $data Массив значений
+ * @return array|null Массив значений
+ */
 function fetch_db_data (mysqli $con, string $sql, array $data = []): ?array
 {
     $result = [];
@@ -43,6 +65,14 @@ function fetch_db_data (mysqli $con, string $sql, array $data = []): ?array
     return $result;
 }
 
+/**
+ * Выборка одной строки из базы данных с помощью подготовленного выражения
+ * @param mysqli $con Подключение
+ * @param string $sql Запрос
+ * @param array $data Массив значений
+ * @return array|null Массив значений
+ */
+
 function db_fetch_single_data(mysqli $con, string $sql, array $data = []): ?array
 {
     $result = [];
@@ -55,6 +85,13 @@ function db_fetch_single_data(mysqli $con, string $sql, array $data = []): ?arra
     return $result;
 }
 
+/**
+ * Вставка значений в базу данных с использованием подготовительного выражения
+ * @param mysqli $con Подключение
+ * @param string $sql Запрос
+ * @param array $data Массив значений
+ * @return int Идентификационный номер записи
+ */
 function db_insert_data(mysqli $con, string $sql, array $data = []): int
 {
     $stmt = db_get_prepare_stmt($con, $sql, $data);
@@ -69,6 +106,9 @@ function db_insert_data(mysqli $con, string $sql, array $data = []): int
     return $result;
 }
 
+/**
+ * Показать ошибку 404
+ */
 function show_error () {
     http_response_code(404);
     $error = "Страница не найдена.";
@@ -76,6 +116,13 @@ function show_error () {
     die();
 }
 
+/**
+ * Рассчитать разницу в датах в днях
+ * @param string $date1 Дата в будущем
+ * @param string $date2 Сегодняшняя дата
+ * @return int Число дней
+ * @throws Exception
+ */
 function date_diff_days(string $date1, string $date2 = 'now'): int
 {
     $dateObj1 = new DateTime($date1);
@@ -86,13 +133,17 @@ function date_diff_days(string $date1, string $date2 = 'now'): int
     return (int) $diff->format('%a');
 }
 
+/**
+ * Показать время в человеческом формате
+ * @param string $time_of_bid Время
+ */
 function calculate_bid_times (string $time_of_bid) {
     $sec_since_posted = strtotime('now') - strtotime($time_of_bid);
     $h_since_posted = floor($sec_since_posted/3600);
     $min_since_posted = floor(($sec_since_posted % 3600) / 60);
     if ($h_since_posted < 1) {
         echo $min_since_posted . ' мин. назад';
-    } else if ($h_since_posted == 1 and $h_since_posted < 2) {
+    } else if ($h_since_posted === 1 and $h_since_posted < 2) {
         echo "час назад";
     } else if ($h_since_posted >= 2 and $h_since_posted < 24) {
         echo $h_since_posted . ' ч. назад';
@@ -103,6 +154,11 @@ function calculate_bid_times (string $time_of_bid) {
     }
 }
 
+/**
+ * Определяет пустой ли массив в массиве
+ * @param array $arr Гоавный массив
+ * @return bool
+ */
 function all_null_recursive($arr)
 {
     foreach ($arr as $item) {
