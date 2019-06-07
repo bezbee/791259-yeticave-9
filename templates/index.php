@@ -24,7 +24,8 @@
                             <span class="lot__cost"><?=formatPrice(htmlspecialchars($item['price'])); ?></span>
                         </div>
                         <div class="lot__timer timer <?php
-                        if (showTime($item['end_by']) <= "1:00") {
+
+                        if (strtotime($item['end_by']) <= strtotime("1 hour")) {
                             print("timer--finishing");
                         }
                         ?>">

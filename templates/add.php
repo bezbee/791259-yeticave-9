@@ -20,7 +20,7 @@
                 <option value="">Выберите категорию</option>
                 <?php foreach ($categories as $key => $cat): ?>
                 <option value="<?=$cat['id']; ?>"
-                <?= $category == $cat['id'] ? "selected" : "";?>
+                <?= $category === $cat['id'] ? "selected" : "";?>
                 ><?=$cat['category']; ?></option>
                 <?php endforeach; ?>
             </select>

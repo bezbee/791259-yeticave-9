@@ -14,16 +14,16 @@
                     <img src="<?=$bid['image'];?>" width="54" height="40" alt="Сноуборд">
                 </div>
                 <div>
-                <h3 class="rates__title"><a href="lot.php?id=<?=$bid['lot']; ?>"><?=$bid['title'];?></a></h3>
+                <h3 class="rates__title"><a href="lot.php?id=<?=$bid['lot']; ?>"><?=htmlspecialchars($bid['title']);?></a></h3>
                 <?php
                 if($is_win) {
-                    echo '<p>' . $bid['contact'] . '</p>';
+                    echo '<p>' . htmlspecialchars($bid['contact']) . '</p>';
                 }
                 ?>
                 </div>
             </td>
             <td class="rates__category">
-                <?=$bid['category'];?>
+                <?=htmlspecialchars($bid['category']);?>
             </td>
             <td class="rates__timer">
                 <div class="timer <?php
@@ -32,7 +32,7 @@
                 }
                 elseif(strtotime($bid['end_by']) <= strtotime('now') )  {
                     echo 'timer--end';
-                } else if (strtotime($bid['end_by']) < 3600) {
+                } else if (strtotime($bid['end_by']) < strtotime("1 hour")) {
                     echo 'timer--finishing';
                 } else {
                     echo '';

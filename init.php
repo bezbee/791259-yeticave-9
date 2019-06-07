@@ -1,6 +1,7 @@
 <?php
 require_once('functions.php');
 require_once('helpers.php');
+date_default_timezone_set("America/Boise");
 session_start();
 
 $link = mysqli_connect('mysql', 'root', 'root', 'yeticave');

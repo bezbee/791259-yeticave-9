@@ -23,9 +23,15 @@ function formatPrice (int $number):string
 function showTime (string $timestamp):string
 {
     $unix = strtotime($timestamp);
-    $hours =  floor($unix / 3600);
-    $minutes = floor(($unix % 3600)/ 60);
-    return $hours . ":" . $minutes;
+    $now = strtotime("now");
+    $diff = $unix - $now;
+    $days = floor($diff / 86400);
+    $hours =  floor(($diff % 86400) / 3600);
+    $minutes = floor((($diff % 86400) % 3600)/ 60);
+    if ($days >= 1) {
+        return $days . " дн. " . $hours . ":" . $minutes;
+    }
+    return  $hours .":" . $minutes;
 }
 
 /**
@@ -36,10 +42,18 @@ function showTime (string $timestamp):string
 function showTimeAddSec (string $timestamp):string
 {
     $unix = strtotime($timestamp);
-    $hours =  floor($unix / 3600);
-    $minutes = floor(($unix % 3600) / 60);
-    $seconds = floor(($unix % 3600) / 3600);
+    $now = strtotime("now");
+    $diff = $unix - $now;
+    $days = floor($diff / 86400);
+    $hours =  floor(($diff % 86400) / 3600);
+    $minutes = floor((($diff % 86400) % 3600)/ 60);
+    $seconds = floor((($diff % 86400) % 3600)/ 60 / 3600);
+    if ($days >= 1) {
+        return $days . " дн. " . $hours . ":" . $minutes . ":" . $seconds;
+    }
     return $hours . ":" . $minutes . ":" . $seconds;
+
+
 }
 
 /**

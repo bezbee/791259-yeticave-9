@@ -41,11 +41,11 @@ if($cat) {
     $result = mysqli_query($link, "SELECT COUNT(*) as cnt FROM lot l JOIN category c on l.category = c.id  WHERE l.end_by > NOW() AND c.class = '$cat'");
     $items_count = mysqli_fetch_assoc($result)['cnt'];
     $pages_count = ceil($items_count / $items_per_page);
-    $pages = range(1, $pages_count);
+    $pages = range(1, intval($pages_count));
     $lots = fetch_db_data($link, 'SELECT l. id, l.image, l.title, l.end_by, IFNULL(MAX(b.offer), l.starting_price) as price, c.category, c.class, COUNT(b.offer) as bid_count FROM lot l JOIN category c ON l.category = c.id  LEFT JOIN bid b ON l.id = b.lot  WHERE ' .$condition . ' GROUP BY l.id, l.title, l.starting_price, l.image, l.end_by, c.category ORDER BY l.created_on DESC LIMIT ' . $items_per_page .' OFFSET ' . $offset);
     $pagination = include_template('pagination.php',[
         'pages' => $pages,
-        'cur_page' => $cur_page,
+        'cur_page' => intval($cur_page),
         'url' => $url
     ]);
 } else {
