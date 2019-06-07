@@ -13,7 +13,7 @@
             if(isset($_SESSION['user']) and strtotime($lot['end_by']) > strtotime('now') and $is_current_user_created['user_id'] !== $_SESSION['user']['id']): ?>
             <div class="lot-item__state">
                 <div class="lot-item__timer timer <?php
-                if (showTime($lot['end_by']) <= "1:00") {
+                if (strtotime($lot['end_by']) <= strtotime("1 hour")) {
                     print("timer--finishing");
                 };?>">
                     <?=showTime($lot['end_by']); ?>

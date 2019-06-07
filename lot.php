@@ -44,7 +44,7 @@ if(!isset($_GET['id'])) {
 
         if(!$error_count) {
             $current_user_id = $_SESSION['user']['id'];
-            db_insert_data($link, 'INSERT into bid (user_id, lot, added_on, offer) VALUES (?, ?, NOW(), ?)', [$current_user_id, $id, $bid]);
+            db_insert_data($link, "INSERT into bid (user_id, lot, added_on, offer) VALUES (?, ?,'$now', ?)", [$current_user_id, $id, $bid]);
             header('Location: '.$_SERVER['REQUEST_URI']);
 
 

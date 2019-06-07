@@ -6,6 +6,7 @@ session_start();
 
 $link = mysqli_connect('mysql', 'root', 'root', 'yeticave');
 mysqli_set_charset($link, "utf8");
+$now = date('Y-m-d H:i:s');
 
 if (!$link) {
     $error = mysqli_connect_error();
