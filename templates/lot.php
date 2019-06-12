@@ -10,7 +10,7 @@
         </div>
         <div class="lot-item__right">
             <?php
-            if(isset($_SESSION['user']) and strtotime($lot['end_by']) > strtotime('now') and $is_current_user_created['user_id'] !== $_SESSION['user']['id']): ?>
+            if(isset($_SESSION['user']) and strtotime($lot['end_by']) > strtotime('now') and $is_current_user_created['user_id'] !== $_SESSION['user']['id'] and $user_id_of_last_bidder['user_id'] !== $_SESSION['user']['id']): ?>
             <div class="lot-item__state">
                 <div class="lot-item__timer timer <?php
                 if (strtotime($lot['end_by']) <= strtotime("1 hour")) {

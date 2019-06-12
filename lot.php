@@ -9,9 +9,9 @@ if(!isset($_GET['id'])) {
     show_error();
 } else {
     $id = intval($_GET['id']);
-    $is_current_user_created = db_fetch_single_data($link, "SELECT user_id from lot where id = '$id'");
-    $bid_list = fetch_db_data($link, "SELECT b.lot, b.added_on, b.offer, u.name as name FROM bid b LEFT JOIN user u on b.user_id = u.id WHERE b.lot = '$id' ORDER BY b.added_on DESC LIMIT 10");
-
+    $is_current_user_created = db_fetch_single_data($link, 'SELECT user_id from lot where id = ?', [$id]);
+    $bid_list = fetch_db_data($link, 'SELECT b.lot, b.added_on, b.offer, u.name as name FROM bid b LEFT JOIN user u on b.user_id = u.id WHERE b.lot = ? ORDER BY b.added_on DESC LIMIT 10', [$id]);
+    $user_id_of_last_bidder = db_fetch_single_data($link, 'SELECT u.id as user_id FROM bid b LEFT JOIN user u on b.user_id = u.id WHERE b.lot = ? ORDER BY b.added_on DESC', [$id]);
     $lot = db_fetch_single_data($link,
         "SELECT l.title, l.description, l.starting_price, l.image, l.end_by, l.bid_step, IFNULL(MAX(b.offer), l.starting_price) as price, c.category FROM lot l 
     LEFT OUTER JOIN bid b ON l.id = b.lot 
@@ -73,7 +73,8 @@ $page_content = include_template('lot.php', [
     'form_class' => '',
     'errors' => $errors,
     'bid_list' => $bid_list,
-    'is_current_user_created' => $is_current_user_created
+    'is_current_user_created' => $is_current_user_created,
+    'user_id_of_last_bidder' => $user_id_of_last_bidder
 ]);
 
 $layout_content = include_template('layout.php', [

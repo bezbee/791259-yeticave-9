@@ -77,5 +77,4 @@ SELECT user_id, lot, added_on, offer from bid
 WHERE bid.lot = '3'
 order by added_on DESC;
 
-
-SELECT lot_and_max_offer_id.*, b.user_id, u.name as user_name, u.email as email from (SELECT l.id as lot_id, l.title as title, MAX(b.id) as max_offer_id FROM bid b join lot l on b.lot = l.id  WHERE l.end_by <= now() and l.winner IS NULL group by l.id) as lot_and_max_offer_id join bid b on lot_and_max_offer_id.max_offer_id = b.id left join user u on b.user_id = u.id
+SELECT user_id from lot where id = 10;

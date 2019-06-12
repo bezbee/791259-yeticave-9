@@ -17,7 +17,7 @@ $errors = [
     'lot-image' => NULL
 ];
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $user_lot = $_POST;
     $required = ['category', 'lot-name', 'message', 'lot-rate', 'lot-step', 'lot-date'];
     $error_count = 0;
